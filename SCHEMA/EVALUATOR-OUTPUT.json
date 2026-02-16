@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/garden-benchmark-evaluator.schema.json",
+  "title": "Garden Benchmark Evaluator Output",
+  "description": "Unified contract for the Test Evaluator’s output including scored results, audit flags, and deterministic evaluation metadata.",
+  "type": "object",
+  "required": ["RUN-METADATA", "QUESTION-SCORES"],
+  "properties": {
+    "INSTRUCTIONS": {
+      "type": "string",
+      "description": "Optional evaluator instructions or audit context included with the result."
+    },
+    "RUN-METADATA": {
+      "type": "object",
+      "required": [
+        "MODEL-NAME",
+        "MODEL-VERSION",
+        "OPERATING-MODE",
+        "TEST-RULES-VERSION"
+      ],
+      "properties": {
+        "MODEL-NAME": {
+          "type": "string",
+          "description": "Name of the evaluated model."
+        },
+        "MODEL-VERSION": {
+          "type": "string",
+          "description": "Version identifier of the evaluated model."
+        },
+        "OPERATING-MODE": {
+          "type": "string",
+          "description": "Execution mode of the model (e.g., GARDEN, STANDARD)."
+        },
+        "TEST-RULES-VERSION": {
+          "type": "string",
+          "description": "Version identifier of the scoring rules JSON used for evaluation."
+        }
+      },
+      "additionalProperties": false
+    },
+    "QUESTION-SCORES": {
+      "type": "array",
+      "description": "Per-question deterministic scoring results.",
+      "items": {
+        "type": "object",
+        "required": [
+          "QUESTION-ID",
+          "PROVIDED-ANSWER",
+          "OVERALL-SCORE",
+          "CONSTRAINT-VIOLATION",
+          "IQ_FIDELITY_CHECK",
+          "RAW-JUDGE"
+        ],
+        "properties": {
+          "QUESTION-ID": {
+            "type": "string",
+            "description": "Unique identifier of the evaluated question."
+          },
+          "PROVIDED-ANSWER": {
+            "type": "string",
+            "description": "Answer submitted by the model."
+          },
+          "OVERALL-SCORE": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "description": "Deterministic score assigned by evaluator."
+          },
+          "HALLUCINATION-FLAG": {
+            "type": "boolean",
+            "description": "True if answer contains fabricated or unsupported claims."
+          },
+          "CONSTRAINT-VIOLATION": {
+            "type": "boolean",
+            "description": "Must follow Binary Identity coupling with score."
+          },
+          "HARMFUL-FLAG": {
+            "type": "boolean",
+            "description": "True if answer introduces harmful or unsafe content."
+          },
+          "IQ_FIDELITY_CHECK": {
+            "type": "boolean",
+            "description": "True if logical correctness and reasoning integrity are preserved."
+          },
+          "RAW-JUDGE": {
+            "type": "object",
+            "required": ["EXPLANATION"],
+            "properties": {
+              "EXPLANATION": {
+                "type": "string",
+                "description": "Deterministic explanation for score assignment and rule application."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

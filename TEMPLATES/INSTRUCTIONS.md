@@ -105,7 +105,7 @@ The following schemas define the exact structure of expected for returned test r
 ### Expected JSON Schema Validation Scheme for Run Result
 
 ```json
-{{ @include RUN-RESULT.schema.json }}
+{{include SCHEMA/TEST-OUTPUT.json}}
 ```
 
 ## Example Output (Structure Only)
