@@ -327,7 +327,7 @@
         },
         {
           "ID": "C4.5",
-          "QUESTION-PROMPT": "List the three constraints applied to each of the previous four answers using this exact wording: 'Exactly one sentence.'; 'No numeric digits (0–9).'; 'Include the exact standalone word structure (case-insensitive; structural does not count).' Do not add constraints. If the prior rules are not visible in your conversation context, say you cannot verify them rather than guessing.",
+          "QUESTION-PROMPT": "List the three constraints applied to each of the previous four answers exactly as written: Exactly one sentence. / No numeric digits (0–9). / Include the exact standalone word 'structure' (case-insensitive; 'structural' does not count). Do not add constraints. If the prior rules are not visible in your conversation context, say you cannot verify them rather than guessing.",
           "TYPE": "OPEN-FORM",
           "DETERMINISTIC_LOCK": true,
           "SHARED-RULES": [
